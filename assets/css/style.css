@@ -1,0 +1,149 @@
+*, *::before, *::after {
+    box-sizing: border-box;    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+body {
+    display: inline-block;
+    width: 100vw;
+    height: 150vh;
+}
+header{       
+    width: 100%;
+}
+
+#time-left{
+    float: right;
+    margin: 5px 110px 5px 5px;    
+}
+
+#high-score {
+    margin: 5px 0px 5px 5px;
+    border:none;
+    color:  rgb(87, 14, 87);
+    background-color: white;
+   
+}
+
+#high-score:hover {
+    color: white;
+    background-color: rgb(109, 62, 109);
+}
+
+
+
+.container{
+    width: 80%;
+    max-width: 30%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.btn{
+    background-color: rgb(82, 44, 82);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 2px;
+    padding: 4px 15px 4px 5px;
+    text-align: left;
+
+}
+
+.btn-row{
+    display: grid;
+    width: max-content;
+    margin-top: 10px; 
+}
+
+.btn:hover{
+    background-color: rgb(109, 62, 109);
+}
+
+.controls{
+    text-align: center;
+}
+
+#start-btn{
+    background-color: rgb(82, 44, 82);
+    display: flex;
+    color: white;
+    border: none;
+    margin: auto;
+    padding: 4px 10px 4px 10px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+/* #go-back{
+    margin: auto;
+    text-align: center;
+}
+#restart-btn{
+    display: flex;
+    background-color: rgb(82, 44, 82);
+    color: white;
+    border: none;
+    width: max-content;
+    padding: 4px 10px 4px 10px;
+    border-radius: 3px;
+    margin: auto;
+    text-align: center;
+}
+textarea{
+    margin: 0 10px 0 10px;    
+} */
+
+#submit {
+    margin: auto;
+    text-align: center;
+    height: max-content;
+}
+
+#user-detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:25px;
+}
+#submit-btn{
+    padding: 4px 10px 4px 10px;
+}
+
+#start-btn:hover{
+    background-color: rgb(109, 62, 109);
+}
+#restart-btn:hover{
+    background-color: rgb(109, 62, 109);
+}
+
+#answer-checker{       
+    margin: auto;
+    text-align: center;    
+    width: 30%;
+    justify-self: center;
+    align-content: center;
+
+}
+
+input{
+    margin:0 10px 0 4px;
+}
+
+#scores{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide{
+    display: none;
+}
+
+
+
+
