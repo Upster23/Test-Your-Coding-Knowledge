@@ -79,26 +79,7 @@ header{
     text-align: center;
 }
 
-/* #go-back{
-    margin: auto;
-    text-align: center;
-}
-#restart-btn{
-    display: flex;
-    background-color: rgb(82, 44, 82);
-    color: white;
-    border: none;
-    width: max-content;
-    padding: 4px 10px 4px 10px;
-    border-radius: 3px;
-    margin: auto;
-    text-align: center;
-}
-textarea{
-    margin: 0 10px 0 10px;    
-} */
-
-#submit {
+#quiz-finished {
     margin: auto;
     text-align: center;
     height: max-content;
@@ -135,9 +116,8 @@ input{
 }
 
 #scores{
-    display: grid;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    height: max-content;
 }
 
 .hide{

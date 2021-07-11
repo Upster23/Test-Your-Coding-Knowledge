@@ -5,14 +5,53 @@ const questionContainer = document.querySelector("#question-container");
 const questionEl = document.querySelector("#question");
 const answerBtnEl = document.querySelector("#answer-buttons");
 const answerChecker = document.querySelector("#answer-checker");
-const submitScore = document.querySelector("#submit");
-const userScores = document.querySelector("#scores");
+const submitScore = document.querySelector("#submit-btn");
+const quizFinished = document.querySelector("#quiz-finished");
+const highScores = document.querySelector("#scores");
+const userInput = document.querySelector("#user-initials");
+const userScores = document.querySelector("#user-scores");
 const wrongEl = document.querySelector("#wrong-choice");
 const correctEl = document.querySelector("#correct-choice");
 const timerEl = document.querySelector("#time-left");
 
+let users = [];
+
+function renderScores() {
+  userScores.innerHTML = "";
 
 
+  for (const i = 0; i < users.length; i++) {
+    const user = users[i];
+
+    const li = document.createElement("li");
+    li.textContent = user;
+    li.setAttribute("data-index", i);
+  }
+}
+
+function init(){
+
+  const storedUsers = JSON.parse(localStorage.getItem("users"));
+
+  if (storedUsers !== null) {
+    users = storedUsers;
+  }
+  renderScores();
+}
+
+function storeUsers () {
+  localStorage.setItem("users", JSON.stringify(users));
+  submitScore.addEventListener("click", function(event){
+    const userInitials = userInput.nodeValue.trim();
+    if (userInitials === "") {
+      return;
+    }
+    users.push(userInitials);
+    userInput.value = "";
+    storeUsers();
+    renderScores();
+  });
+}
 
 
 let shuffledQuestions, currentQuestionIndex;
@@ -36,15 +75,24 @@ answerBtnEl.addEventListener("click", () => {
 
 submitScore.addEventListener("click", revealScores);
 
-function revealScores() {
-  userScores.classList.remove("hide")
+function revealScores(event) {
+  event.preventDefault();  
+  quizFinished.classList.add("hide");
+  highScores.classList.remove("hide");
 }
 
+restartButton.addEventListener("click", startPage);
+
+function startPage() {
+  highScores.classList.add("hide");
+  initialPage.classList.remove("hide");
+
+}
 
 function startGame(){
-  timerCount = 30;
+  timerCount = 9;
   console.log("started");
-  initialPage.classList.add("hide");
+  initialPage.classList.add("hide"); 
   shuffledQuestions = questions.sort(() => Math.random() - .5);
   currentQuestionIndex = 0;
   questionContainer.classList.remove("hide"); 
@@ -52,33 +100,25 @@ function startGame(){
   nextQuestion()
 }
 
-function startTimer() {
-
-  // Sets timer
+function startTimer() { 
     timer = setInterval(function() {
     timerCount--;
     timerEl.innerText = "Time:  " + timerCount;
     
-    if (timerCount >= 0) {
-      // Tests if win condition is met   
-      if (wrongMessage)
-      timerCount-10;  
-    }
-    // Tests if time has run out
-    if (timerCount === 0) {
-      // Clears interval
-      clearInterval(timer);     
-    }
+    if (timerCount === 0) {             
+        clearInterval(timer);
+        allDone();
+    }    
   }, 1000);
 }
 
 function correctScore() {
 correctCounter++
-setCorrect()
+setCorrect();
 }
 
 function setCorrect(){
-  localStorage.setItem("correctCount", correctCounter);
+  localStorage.setItem("correctCount", +correctCounter);
 }
 
 
@@ -111,6 +151,7 @@ function selectAnswer(e){
   const selectedBtn = e.target;
   const correct = selectedBtn.dataset.correct;    
   if (correct) {
+  
     correctMessage();      
   }
   else {
@@ -119,25 +160,21 @@ function selectAnswer(e){
 }
 
 function correctMessage () {
-    correctEl.classList.remove("hide");  
-    
+  console.log("corr")
+    correctEl.classList.remove("hide");
+    wrongEl.classList.add("hide");
 } 
 
 function wrongMessage () {
-  wrongEl.classList.remove("hide"); 
-  
+  console.log("wron")
+  wrongEl.classList.remove("hide");
+  correctEl.classList.add("hide");
 } 
 
-function allDone() {
+function allDone() {  
    questionContainer.classList.add("hide");
    answerChecker.classList.add("hide");
-   submitScore.classList.remove("hide");
-
-
-   
-
- 
-
+   quizFinished.classList.remove("hide");
 }
 
 const questions = [
