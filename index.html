@@ -10,7 +10,7 @@
 
     <section>
      <header>
-      <button id="high-score" ><strong>View Highscores</strong> </button>    
+      <a href="highscores.html" id="high-score" ><strong>View Highscores</strong> </a>    
       <div id="time-left">Time:  0</div>      
      </header>    
     </section>
@@ -47,11 +47,14 @@
     <section id = "quiz-finished" class="hide">
         <div>
           <h2 id = "finish-over">All Done!</h2>
-          <p>Your final score is</p>
+          <p>Your final score is <span id="display-final-score"></span></p>
         </div>      
         <div id = user-detail>  
-          <p>Enter initials:</p><input id = "user-initials"></input>        
-          <button id = "submit-btn" class = "btn">Submit</button>
+          <form id="form-highscore">
+            <p>Enter initials:</p><input id = "user-initials"></input>        
+
+            <button id = "submit-btn" class = "btn">Submit</button>
+          </form>
         </div>  
     </section>
     
@@ -65,6 +68,7 @@
           <button id="clear-scores" class = "btn" type="submit" >Clear Highscores</button>
         </div>  
     </section> 
+    <script src="assets/js/questions.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>

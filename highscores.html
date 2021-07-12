@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>All Highscores</h1>
+
+        <section>
+            <ul id="highscores"></ul>
+        </section>
+
+        <script>
+            const ulScore = document.getElementById('highscores');
+            // get all the scores from local storage
+            const scores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+            scores.sort(function(score1, score2){
+                if(score2.score >= score1.score){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            })
+
+            // loop thru each
+            for (let index = 0; index < scores.length; index++) {
+                const score = scores[index];
+
+                const li = document.createElement("li");
+                li.textContent = `${score.initials}: ${score.score}`;
+                ulScore.appendChild(li);
+            }
+
+            // append to highcores ul
+        </script>
+    </body>
+</html>

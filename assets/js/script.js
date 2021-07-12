@@ -13,8 +13,35 @@ const userScores = document.querySelector("#user-scores");
 const wrongEl = document.querySelector("#wrong-choice");
 const correctEl = document.querySelector("#correct-choice");
 const timerEl = document.querySelector("#time-left");
+const displayFinalScore = document.querySelector("#display-final-score");
+const highscoreFormEl = document.querySelector("#form-highscore");
 
-let users = [];
+
+let users = JSON.parse(localStorage.getItem('highscores')) || [];
+
+let currentUserScore = 0;
+let currentUserInitials = "";
+
+highscoreFormEl.addEventListener("submit", function(event){
+  event.preventDefault();
+  
+
+  // get the user input
+  currentUserInitials = userInput.value;
+
+  // get the current score
+  // store in local storage
+  users.push({
+    initials: currentUserInitials,
+    score: currentUserScore,
+  });
+
+  localStorage.setItem('highscores', JSON.stringify(users));
+
+  revealScores();
+
+})
+
 
 function renderScores() {
   userScores.innerHTML = "";
@@ -24,33 +51,13 @@ function renderScores() {
     const user = users[i];
 
     const li = document.createElement("li");
-    li.textContent = user;
-    li.setAttribute("data-index", i);
+    li.setAttribute("class", " ")
+    li.textContent = user;  
   }
 }
 
 function init(){
-
-  const storedUsers = JSON.parse(localStorage.getItem("users"));
-
-  if (storedUsers !== null) {
-    users = storedUsers;
-  }
   renderScores();
-}
-
-function storeUsers () {
-  localStorage.setItem("users", JSON.stringify(users));
-  submitScore.addEventListener("click", function(event){
-    const userInitials = userInput.nodeValue.trim();
-    if (userInitials === "") {
-      return;
-    }
-    users.push(userInitials);
-    userInput.value = "";
-    storeUsers();
-    renderScores();
-  });
 }
 
 
@@ -59,9 +66,7 @@ let timer;
 let timeCount;
 let correctCounter = 0;
 
-function init(){
-  correctAnswers();
-}
+
 
 startButton.addEventListener("click", startGame);
 answerBtnEl.addEventListener("click", () => {
@@ -73,19 +78,36 @@ answerBtnEl.addEventListener("click", () => {
   }
 });
 
-submitScore.addEventListener("click", revealScores);
 
-function revealScores(event) {
-  event.preventDefault();  
+function revealScores() {
   quizFinished.classList.add("hide");
   highScores.classList.remove("hide");
+
+  const currentUserScores = users.filter(function(user){
+    return user.initials === currentUserInitials; 
+  });
+
+  // display a listing of highscores
+
+  for (let index = 0; index < currentUserScores.length; index++) {
+    const user = currentUserScores[index];
+    
+    const li = document.createElement('li');
+    li.textContent = `${user.initials}: ${user.score}`
+
+    userScores.appendChild(li);
+
+
+  }
+
 }
 
 restartButton.addEventListener("click", startPage);
 
 function startPage() {
-  highScores.classList.add("hide");
-  initialPage.classList.remove("hide");
+  window.location.reload();
+  // highScores.classList.add("hide");
+  // initialPage.classList.remove("hide");
 
 }
 
@@ -112,14 +134,11 @@ function startTimer() {
   }, 1000);
 }
 
-function correctScore() {
-correctCounter++
-setCorrect();
+function stopTimer() {
+  clearInterval(timer);
 }
 
-function setCorrect(){
-  localStorage.setItem("correctCount", +correctCounter);
-}
+
 
 
 function nextQuestion(){
@@ -151,7 +170,7 @@ function selectAnswer(e){
   const selectedBtn = e.target;
   const correct = selectedBtn.dataset.correct;    
   if (correct) {
-  
+    currentUserScore += 1;
     correctMessage();      
   }
   else {
@@ -175,42 +194,9 @@ function allDone() {
    questionContainer.classList.add("hide");
    answerChecker.classList.add("hide");
    quizFinished.classList.remove("hide");
+   displayFinalScore.textContent = currentUserScore;
+   stopTimer();
 }
-
-const questions = [
-  {
-    question:'Commonly used data types DO NOT include:',
-    answers: [{text:'1. strings', correct: false},
-              {text:'2. booleans', correct: false},
-              {text:'3. alerts', correct: true},
-              {text:'4. numbers', correct: false}
-             ]
-  },
-  {
-    question:'The condition in an if/else statement is enclosed within_______.',
-    answers: [{text:'1. quotes', correct: false},
-              {text:'2. curly brackets', correct: false},
-              {text:'3. parenthesis', correct: true},
-              {text:'4. square brackets', correct: false}
-             ]
-  },
-  {
-    question:'Arrays in Javascript can be used to store_______.',
-    answers: [{text:'1. numbers and strings', correct: false},
-              {text:'2. other arrays', correct: false},
-              {text:'3. booleans', correct: false},
-              {text:'4. all of the above', correct: true}
-             ]
-  },
-  {
-    question:'A very useful tool used during development and debugging for printing content to the debugger',
-    answers: [{text:'1. Javascript', correct: false},
-              {text:'2. terminal/bash', correct: false},
-              {text:'3. for loops', correct: false},
-              {text:'4. console.log', correct: true}
-             ]
-  }
-];
 
 
 
