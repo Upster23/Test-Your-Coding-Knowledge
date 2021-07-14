@@ -2,7 +2,7 @@
 
 ### This application is created using javascript.
 
-### The appication is deployed [here](https://upster23.github.io/Your-Personalised-Work-Day-Scheduler/)
+### The appication is deployed [Here:Test-Your-Coding-Knowledge-Quiz](https://upster23.github.io/Test-Your-Coding-Knowledge-Quiz/)
 
 ### A screenshot of the application is below
 
