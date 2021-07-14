@@ -31,16 +31,13 @@ header{
     background-color: rgb(109, 62, 109);
 }
 
-
-
 .container{
     width: 80%;
     max-width: 30%;
     margin: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
 }
 
 .btn{
@@ -115,13 +112,53 @@ input{
     margin:0 10px 0 4px;
 }
 
+li{
+    list-style-type: none;
+}
+
+/* li {
+    list-style-type: none;    
+    border: 1px;
+    background-color: rgb(109, 62, 109);
+    width: 250px;
+    margin: auto;
+    text-align: left;
+    /* padding: 5px;
+    color: white; */
+/* } */ */
+
 #scores{
     text-align: center;
     height: max-content;
 }
 
+#highscores {
+    /* margin: 3px 0 0 0; */
+    padding: 2px;
+    /* border: 1px solid black;*/
+    list-style-type: none;
+    /* background-color: violet; */
+    /* width: 200px; */
+    /*margin-top: 5px; */
+}
+
+#score-summary {
+    text-align: center;
+}
+
+.high-btn {
+    margin-left: 0px;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+}
+
 .hide{
     display: none;
+}
+
+.text-center{
+    text-align: center;
 }
 
 

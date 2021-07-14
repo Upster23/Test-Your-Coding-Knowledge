@@ -15,6 +15,7 @@ const correctEl = document.querySelector("#correct-choice");
 const timerEl = document.querySelector("#time-left");
 const displayFinalScore = document.querySelector("#display-final-score");
 const highscoreFormEl = document.querySelector("#form-highscore");
+const clearScoreButton = document.querySelector("#clear-scores");
 
 
 let users = JSON.parse(localStorage.getItem('highscores')) || [];
@@ -42,6 +43,12 @@ highscoreFormEl.addEventListener("submit", function(event){
 
 })
 
+clearScoreButton.addEventListener('click', function(event){
+  event.preventDefault();
+  localStorage.setItem('highscores', JSON.stringify([]));
+  window.location.reload();
+});
+
 
 function renderScores() {
   userScores.innerHTML = "";
@@ -50,7 +57,7 @@ function renderScores() {
   for (const i = 0; i < users.length; i++) {
     const user = users[i];
 
-    const li = document.createElement("li");
+    const p = document.createElement("li");
     li.setAttribute("class", " ")
     li.textContent = user;  
   }
@@ -60,13 +67,10 @@ function init(){
   renderScores();
 }
 
-
 let shuffledQuestions, currentQuestionIndex;
 let timer;
 let timeCount;
 let correctCounter = 0;
-
-
 
 startButton.addEventListener("click", startGame);
 answerBtnEl.addEventListener("click", () => {
@@ -77,7 +81,6 @@ answerBtnEl.addEventListener("click", () => {
     allDone();
   }
 });
-
 
 function revealScores() {
   quizFinished.classList.add("hide");
@@ -96,7 +99,6 @@ function revealScores() {
     li.textContent = `${user.initials}: ${user.score}`
 
     userScores.appendChild(li);
-
 
   }
 
@@ -137,9 +139,6 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timer);
 }
-
-
-
 
 function nextQuestion(){
   resetState();

@@ -4,15 +4,19 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>High Scores Summary</title>
+        <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     </head>
     <body>
-        <h1>All Highscores</h1>
+        <h1 id ="score-summary">All Highscores</h1>
 
-        <section>
-            <ul id="highscores"></ul>
+        <section class="text-center">
+            <ul  id="highscores"></ul>
         </section>
+        <section class="text-center">
 
+            <a  href="index.html"><button id="restart-btn" class ="btn high-btn" type="submit" >Go Back</button> </a> 
+        </section>
         <script>
             const ulScore = document.getElementById('highscores');
             // get all the scores from local storage
@@ -32,6 +36,7 @@
 
                 const li = document.createElement("li");
                 li.textContent = `${score.initials}: ${score.score}`;
+                li.setAttribute("class", "list-group")
                 ulScore.appendChild(li);
             }
 
